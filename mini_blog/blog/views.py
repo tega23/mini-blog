@@ -11,9 +11,11 @@ def index(request):
 class AllBlogsListView(generic.ListView):
     model = BlogPost
     paginate_by = 5
-
+    context_name = 'blog_list'
+    template_name = 'blog_list.html'
     def get_queryset(self):
-        pass
+        return BlogPost.objects.all().order_by(post_date)
+
 class AllBloggersListView(generic.ListView):
     model = Blogger
     paginate_by = 10

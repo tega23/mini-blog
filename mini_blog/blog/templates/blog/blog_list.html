@@ -1,0 +1,8 @@
+{% block content %}
+    <h1>All Blogs</h1>
+    <ul>
+        {% for blog in blog_list %}
+            <li><strong><a href ="{{url '' }}">{{blog.blog_post_title}}</a></strong>(blog.post_date) --blog.blogger</li>
+        {% endfor %}
+    </ul>
+{%endblock %}
