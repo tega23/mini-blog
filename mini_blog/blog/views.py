@@ -21,5 +21,5 @@ class AllBloggersListView(generic.ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        pass
+        return Blogger.objects.all()
 
