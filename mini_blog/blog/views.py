@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views import generic
+from .models import Blogger, BlogPost
 # Create your views here.
 
 def index(request):
@@ -7,9 +8,9 @@ def index(request):
         'blog/index.html',
         context ={})
 
-class AllBlogListView(generic.ListView):
+class AllBlogsListView(generic.ListView):
     model = BlogPost
-    paginate_by = 10
+    paginate_by = 5
 
     def get_queryset(self):
         pass
