@@ -5,21 +5,24 @@ from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.models import User
 # Create your models here.
+
+
 class Blogger(models.Model):
     first_name = models.CharField(max_length = 100)
     last_name = models.CharField(max_length = 100)
+    username = models.CharField(max_length = 50)
     date_of_birth = models.DateField(null = True, blank = True)
     location = models.CharField(max_length = 200, null = True)
     bio = models.TextField(null = True , blank = True)
 
     def __str__(self):
-        return "%s, %s"%self.first_name , self.last_name
+        return "{}, {}".format(self.first_name , self.last_name)
 
     def get_absolute_url(self):
         return reverse('blog-detail', args=[str(self.id)])
 
 class BlogPost(models.Model):
-    blog_post_title = models.CharField(max_length = 200)
+    blog_post_title = models.CharField(max_length = 400)
     post_date = models.DateField(null = True , default = date.today())
     blogger = models.ForeignKey(Blogger, on_delete = models.SET_NULL, null = True)
     content = models.TextField()
