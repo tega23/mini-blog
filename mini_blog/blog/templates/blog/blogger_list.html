@@ -4,7 +4,7 @@
     <h1>All Bloggers</h1>
     <ul>
         {% for blogger in blogger_list %}
-            <li><strong><a href ="#">{{blogger}}</a></strong> </li>
+            <li><strong><a href ="{% url 'blogger-detail' blogger.id%}">{{blogger}}</a></strong> </li>
         {% endfor %}
     </ul>
 {%endblock %}

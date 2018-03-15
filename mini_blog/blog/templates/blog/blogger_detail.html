@@ -1,0 +1,15 @@
+{% extends 'blog/base_generic.html' %}
+
+{% block content %}
+    <h1>Blogger : {{blogger}}</h1>
+    <h3>Bio</h3>
+    <p>{{blogger.bio}}</p>
+    <h3>Blogs List</h3>
+    <div class = "blog-post">
+        <ul>
+            {% for blog in blog_posts %}
+                <li><a href ="{% url 'blog-detail' blog.id %}">{{blog}}</a> - {{blog.post_date}}</li>
+            {% endfor %}
+        </ul>
+    </div> 
+{%endblock %}

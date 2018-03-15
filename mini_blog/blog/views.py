@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import generic
-from .models import Blogger, BlogPost
+from .models import Blogger, BlogPost , Comment
 # Create your views here.
 
 def index(request):
@@ -26,9 +26,18 @@ class AllBloggersListView(generic.ListView):
         return Blogger.objects.all()
 
 def blog_detail(request , pk):
-    pass
+    blog_post = BlogPost.objects.get(pk = pk)
+    comment = Comment.objects.filter(blog_post__blogger__id =1)
+    return render (request,
+    'blog/blog_detail.html',
+    context ={'blog_post':blog_post, 'comment':comment})
 
 def blogger_detail(request , pk):
-    pass
-    
+    blogger = Blogger.objects.get(pk = pk)
+    blog_posts =  BlogPost.objects.filter(blogger__id = pk)
+    return render (request,
+    'blog/blogger_detail.html',
+    context ={'blogger': blogger, 'blog_posts':blog_posts},
+    )
+
 

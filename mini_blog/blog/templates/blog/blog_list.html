@@ -4,8 +4,8 @@
     <h1>All Blogs</h1>
     <ul>
         {% for blog in blog_list %}
-            <li><strong><a href ="#">{{blog.blog_post_title}}</a></strong>({{blog.post_date}}) --
-                <a href = "#">{{blog.blogger}} </a></li>
+            <li><strong><a href ="{% url 'blog-detail' blog.id %}">{{blog.blog_post_title}}</a></strong>({{blog.post_date}}) --
+                <a href = "{% url 'blogger-detail' blog.blogger.id %}">{{blog.blogger}} </a></li>
         {% endfor %}
     </ul>
 {%endblock %}

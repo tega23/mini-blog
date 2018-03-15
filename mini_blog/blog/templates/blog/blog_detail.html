@@ -1,0 +1,16 @@
+{% extends 'blog/base_generic.html' %}
+
+{% block content %}
+    <h1>{{blog_post}}</h1>
+    <h4><b>Post Date :</b> {{ blog_post.post_date}}</h4>
+    <h4><b>Author :</b><a href = "#">{{blog_post.blogger}}</a></h4>
+    <h4><b>Description</b></h4>
+    <p>{{blog_post.content}}</p>
+    <div class = "comments">
+        <h3>Comments </h3><hr>
+        {% for user_comment in comment %}
+            <p>{{user_comment.user.username}} ({{user_comment.comment_date}} {{user_comment.comment_time}}) - {{user_comment}}</p>
+            <hr>
+        {% endfor %}
+    </div> 
+{%endblock %}

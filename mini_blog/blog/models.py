@@ -1,6 +1,6 @@
 from datetime import date
 from django.db import models
-from datetime import datetime
+from datetime import time
 from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -28,7 +28,7 @@ class BlogPost(models.Model):
     content = models.TextField()
     
     def __str__(self):
-        return self.blog_post_title
+        return "{}".format(self.blog_post_title)
 
     def get_absolute_url(self):
         return reverse('blogger-detail', args=[str(self.id)])
@@ -37,7 +37,7 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete = models.SET_NULL, null = True)
     blog_post = models.ForeignKey(BlogPost, on_delete = models.SET_NULL , null = True)
     comment_date = models.DateField(default = timezone.now)
-    comment_time = models.TimeField(default =timezone.now)
+    comment_time = models.TimeField(default = timezone.now)
     comment_text = models.TextField()
 
     def __str__(self):
