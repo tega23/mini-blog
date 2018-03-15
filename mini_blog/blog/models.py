@@ -16,14 +16,14 @@ class Blogger(models.Model):
     bio = models.TextField(null = True , blank = True)
 
     def __str__(self):
-        return "{}, {}".format(self.first_name , self.last_name)
+        return "{}".format(self.username)
 
     def get_absolute_url(self):
         return reverse('blog-detail', args=[str(self.id)])
 
 class BlogPost(models.Model):
     blog_post_title = models.CharField(max_length = 400)
-    post_date = models.DateField(null = True , default = date.today())
+    post_date = models.DateField(null = True , default = timezone.now)
     blogger = models.ForeignKey(Blogger, on_delete = models.SET_NULL, null = True)
     content = models.TextField()
     
@@ -36,8 +36,8 @@ class BlogPost(models.Model):
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete = models.SET_NULL, null = True)
     blog_post = models.ForeignKey(BlogPost, on_delete = models.SET_NULL , null = True)
-    comment_date = models.DateField(default = date.today())
-    comment_time = models.TimeField(default =timezone.now())
+    comment_date = models.DateField(default = timezone.now)
+    comment_time = models.TimeField(default =timezone.now)
     comment_text = models.TextField()
 
     def __str__(self):

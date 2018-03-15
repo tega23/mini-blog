@@ -5,7 +5,7 @@
     <ul>
         {% for blog in blog_list %}
             <li><strong><a href ="#">{{blog.blog_post_title}}</a></strong>({{blog.post_date}}) --
-                <a href = "#">{{blog.blogger.username}} </a></li>
+                <a href = "#">{{blog.blogger}} </a></li>
         {% endfor %}
     </ul>
 {%endblock %}

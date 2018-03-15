@@ -25,3 +25,10 @@ class AllBloggersListView(generic.ListView):
     def get_queryset(self):
         return Blogger.objects.all()
 
+def blog_detail(request , pk):
+    pass
+
+def blogger_detail(request , pk):
+    pass
+    
+
