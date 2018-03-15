@@ -19,6 +19,8 @@ class AllBlogsListView(generic.ListView):
 class AllBloggersListView(generic.ListView):
     model = Blogger
     paginate_by = 10
+    context_object_name = 'blogger_list'
+    template_name = 'blog/blogger_list.html'
 
     def get_queryset(self):
         return Blogger.objects.all()

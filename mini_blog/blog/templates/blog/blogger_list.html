@@ -1,0 +1,11 @@
+{% extends 'blog/base_generic.html' %}
+
+{% block content %}
+    <h1>All Blogs</h1>
+    <ul>
+        {% for blog in blog_list %}
+            <li><strong><a href ="#">{{blog.blog_post_title}}</a></strong>({{blog.post_date}}) --
+                <a href = "#">{{blog.blogger.username}} </a></li>
+        {% endfor %}
+    </ul>
+{%endblock %}
