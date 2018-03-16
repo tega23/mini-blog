@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.views import generic
 from .models import Blogger, BlogPost , Comment
+from .forms import UserCommentForm
+from django.urls import reverse
+from django.utils import timezone
 # Create your views here.
 
 def index(request):
@@ -26,11 +29,21 @@ class AllBloggersListView(generic.ListView):
         return Blogger.objects.all()
 
 def blog_detail(request , pk):
-    blog_post = BlogPost.objects.get(pk = pk)
-    comment = Comment.objects.filter(blog_post__blogger__id =1)
-    return render (request,
-    'blog/blog_detail.html',
-    context ={'blog_post':blog_post, 'comment':comment})
+    blogPost = BlogPost.objects.get(pk = pk)
+    comment = Comment.objects.filter(blog_post__blogger__id =pk)
+    if request.method == 'POST':
+        form = UserCommentForm(request.POST)
+        if form.is_valid():
+            #comment_text = form.cleaned_data['comment_text']
+            #new_comment  = Comment.objects.create(user = request.user, blog_post = blogPost , comment_date = timezone.now  , comment_time = timezone.now)
+            #new_comment.save()
+            #return reverse()
+            pass
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = UserCommentForm()
+    return render (request,'blog/blog_detail.html',context ={'blog_post':blogPost, 'comment':comment , 'form':form})
 
 def blogger_detail(request , pk):
     blogger = Blogger.objects.get(pk = pk)

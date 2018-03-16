@@ -3,7 +3,7 @@
 {% block content %}
     <h1>{{blog_post}}</h1>
     <h4><b>Post Date :</b> {{ blog_post.post_date}}</h4>
-    <h4><b>Author :</b><a href = "#">{{blog_post.blogger}}</a></h4>
+    <h4><b>Author :</b><a href = "{% url 'blogger-detail' blog_post.blogger.id %}">{{blog_post.blogger}}</a></h4>
     <h4><b>Description</b></h4>
     <p>{{blog_post.content}}</p>
     <div class = "comments">
@@ -12,5 +12,25 @@
             <p>{{user_comment.user.username}} ({{user_comment.comment_date}} {{user_comment.comment_time}}) - {{user_comment}}</p>
             <hr>
         {% endfor %}
+        {% if user.is_authenticated %}
+           {% load widget_tweaks %} 
+            <form method ='POST'>
+                <div class="form-group">
+                    {% for field in form.visible_fields %}
+                        <div class="fieldWrapper">
+                            {{ field.errors }}
+                            {{ field.label_tag }}
+                            <!--{% render_field field class="form-control" %} -->
+                            {% if field.help_text %}
+                                <small class="form-text text-muted">{{ field.help_text }}</small>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="btn btn-primary">Comment</button>
+            </form>
+        {% else %}
+            <p><a href ="{% url 'login'%}?next={{request.path}}">Login</a> to add a new comment </p>
+        {% endif %}
     </div> 
 {%endblock %}
