@@ -14,13 +14,14 @@
         {% endfor %}
         {% if user.is_authenticated %}
            {% load widget_tweaks %} 
-            <form method ='POST'>
+            <form method ='POST' action ="">
+                {% csrf_token %}
                 <div class="form-group">
                     {% for field in form.visible_fields %}
                         <div class="fieldWrapper">
                             {{ field.errors }}
                             {{ field.label_tag }}
-                            <!--{% render_field field class="form-control" %} -->
+                            {% render_field field class="form-control" %} 
                             {% if field.help_text %}
                                 <small class="form-text text-muted">{{ field.help_text }}</small>
                             {% endif %}
@@ -28,6 +29,7 @@
                     {% endfor %}
                 </div>
                 <button type="submit" class="btn btn-primary">Comment</button>
+                <input type="hidden" name="next" value="{{ request.path }}">
             </form>
         {% else %}
             <p><a href ="{% url 'login'%}?next={{request.path}}">Login</a> to add a new comment </p>

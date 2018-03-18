@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,HttpResponseRedirect
 from django.views import generic
 from .models import Blogger, BlogPost , Comment
 from .forms import UserCommentForm
@@ -32,13 +32,15 @@ def blog_detail(request , pk):
     blogPost = BlogPost.objects.get(pk = pk)
     comment = Comment.objects.filter(blog_post__blogger__id =pk)
     if request.method == 'POST':
-        form = UserCommentForm(request.POST)
+        form = UserCommentForm(data = request.POST)
+        #import pdb; pdb.set_trace()
         if form.is_valid():
-            #comment_text = form.cleaned_data['comment_text']
-            #new_comment  = Comment.objects.create(user = request.user, blog_post = blogPost , comment_date = timezone.now  , comment_time = timezone.now)
-            #new_comment.save()
-            #return reverse()
-            pass
+            
+            comment_ = form.cleaned_data['comment_text']
+            new_comment  = Comment.objects.create(user = request.user, blog_post = blogPost , comment_text = comment_  )
+            new_comment.save()
+            previous_page_url = request.POST.get('next', '/')
+            return HttpResponseRedirect(previous_page_url)
 
     # if a GET (or any other method) we'll create a blank form
     else:
