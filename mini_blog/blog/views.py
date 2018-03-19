@@ -16,8 +16,9 @@ class AllBlogsListView(generic.ListView):
     paginate_by = 5
     context_object_name= 'blog_list'
     template_name = 'blog/blog_list.html'
+    
     def get_queryset(self):
-        return BlogPost.objects.all().order_by('post_date')
+        return BlogPost.objects.all()
 
 class AllBloggersListView(generic.ListView):
     model = Blogger
@@ -30,7 +31,7 @@ class AllBloggersListView(generic.ListView):
 
 def blog_detail(request , pk):
     blogPost = BlogPost.objects.get(pk = pk)
-    comment = Comment.objects.filter(blog_post__blogger__id =pk)
+    comment = Comment.objects.filter(blog_post__id = pk)
     if request.method == 'POST':
         form = UserCommentForm(data = request.POST)
         #import pdb; pdb.set_trace()

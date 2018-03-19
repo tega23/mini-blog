@@ -24,11 +24,16 @@ class Blogger(models.Model):
 class BlogPost(models.Model):
     blog_post_title = models.CharField(max_length = 400)
     post_date = models.DateField(null = True , default = timezone.now)
+    post_time = models.TimeField(null = True , default = timezone.now)
     blogger = models.ForeignKey(Blogger, on_delete = models.SET_NULL, null = True)
     content = models.TextField()
-    
+
+    class Meta:
+        ordering = ['-post_date', '-post_time']
+
     def __str__(self):
         return "{}".format(self.blog_post_title)
+    
 
     def get_absolute_url(self):
         return reverse('blogger-detail', args=[str(self.id)])
